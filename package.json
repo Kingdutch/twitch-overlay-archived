@@ -1,0 +1,9 @@
+{
+  "name": "twitch-overlay",
+  "version": "1.0.0",
+  "description": "The Twitch overlay for Kingdutch's stream",
+  "main": "index.js",
+  "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
+  "license": "UNLICENSED",
+  "private": true
+}
