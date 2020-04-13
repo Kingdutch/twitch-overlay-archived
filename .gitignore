@@ -1,5 +1,5 @@
 # Ignore packages
 node_modules/
 
-# Ignore envirnoment secrets
-.env*
+# Ignore environment secrets
+config.js

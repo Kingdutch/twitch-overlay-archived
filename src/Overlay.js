@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
 import {hot} from "react-hot-loader";
 import TwitterIcon from "./Icons/Twitter";
 import GitHubIcon from "./Icons/GitHub";
+
+import config from '../config.js';
 
 const FONT_COLOR = 'whitesmoke';
 const OVERLAY_COLOR = 'royalblue';
@@ -76,34 +78,59 @@ const StreamerName = styled.h1`
 `;
 
 function Overlay() {
-    return(
-      <Container>
-        <Header>
-          <StreamerName>Kingdutch</StreamerName>
-          <h2>Building a Twitch chat bot</h2>
-        </Header>
-        <MiddleFrame>
-          <StreamInfo>
-            <table>
-              <tbody>
-              <tr>
-                <td><TwitterIcon/></td>
-                <td>@Kingdutch</td>
-              </tr>
-              <tr>
-                <td><GitHubIcon/></td>
-                <td>github.com/Kingdutch/</td>
-              </tr>
-              </tbody>
-            </table>
-            
-          </StreamInfo>
-        </MiddleFrame>
-        <Footer>
+  const [title, setTitle] = useState(null);
 
-        </Footer>
-      </Container>
-    );
+  useEffect(() => {
+    const updateStreamTitle = () => fetch(
+        'https://api.twitch.tv/helix/streams?user_login=' + config.twitch.streamer_login,
+        { headers: { 'Client-ID': config.twitch.client_id }}
+      )
+      .then(response => {
+        if (response.status === 429) {
+          throw new Error("Rate limit exceeded")
+        }
+        return response.json()
+      })
+      .then(stream => !stream.data.length  ? "Offline" : stream.data[0].title)
+      .catch(error => `[${error.message}]`)
+      .then(setTitle);
+
+    // Initially set the stream title.
+    updateStreamTitle();
+
+    // Update the stream title every 60 seconds.
+    const interval = setInterval(updateStreamTitle, 60000);
+    return () => clearInterval(interval);
+  }, [setTitle]);
+
+  return(
+    <Container>
+      <Header>
+        <StreamerName>Kingdutch</StreamerName>
+        <h2>{title}</h2>
+      </Header>
+      <MiddleFrame>
+        <StreamInfo>
+          <table>
+            <tbody>
+            <tr>
+              <td><TwitterIcon/></td>
+              <td>@Kingdutch</td>
+            </tr>
+            <tr>
+              <td><GitHubIcon/></td>
+              <td>github.com/Kingdutch/</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </StreamInfo>
+      </MiddleFrame>
+      <Footer>
+
+      </Footer>
+    </Container>
+  );
 }
 
 export default hot(module)(Overlay);
