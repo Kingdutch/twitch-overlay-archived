@@ -1,0 +1,33 @@
+/**
+ * Reset some important browser styles to make our life easier.
+ */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/**
+ * Fix box sizing so calculating sizes is easier.
+ */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/**
+ * Ensure we have the entire page to play with and it can be put on top of
+ * stream elements.
+ */
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    overflow: hidden;
+}
