@@ -1,4 +1,13 @@
 /**
+ * Variable declarations.
+ */
+:root {
+    --color-white: whitesmoke;
+    --color-overlay: royalblue;
+    --color-dark: black;
+}
+
+/**
  * Reset some important browser styles to make our life easier.
  */
 html, body {
@@ -30,4 +39,28 @@ html, body, #root {
     width: 100%;
     background-color: transparent;
     overflow: hidden;
+}
+
+/**
+ * Set the default font for our React app.
+ */
+#root {
+    font-family: 'Roboto', sans-serif;
+}
+
+/**
+ * Custom gradient for our overlay background.
+ */
+.background-frame {
+    background: linear-gradient(to right,
+        var(--color-overlay) 0 1.5rem,
+        var(--color-dark) 0 1.5rem,
+        transparent 2.5rem 45rem,
+        var(--color-dark) 45.5rem 45.5rem,
+        var(--color-overlay) 0 47rem,
+        var(--color-dark) 0 47rem,
+        transparent 48rem calc(100vw - 2rem),
+        var(--color-dark) calc(100vw - 1.5rem) calc(100vw - 1.5rem),
+        var(--color-overlay) calc(100vw - 1.5rem)
+    );
 }

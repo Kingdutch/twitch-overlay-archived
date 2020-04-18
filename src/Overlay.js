@@ -16,7 +16,6 @@ const HEIGHT_FOOTER = '25px';
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
 `;
 
 const Header = styled.div`
@@ -49,7 +48,7 @@ const MiddleFrame = styled.div`
 
 const StreamInfo = styled.div`
   position: absolute;
-  top: 540px;
+  top: 544px;
   width: 750px;
   display: flex;
   justify-content: center;

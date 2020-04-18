@@ -1,0 +1,145 @@
+/**
+ * @file
+ * Contains utility based classes.
+ */
+
+/**
+ * Layout
+ */
+.absolute {
+    position: absolute;
+}
+
+.top-0 {
+    top: 0;
+}
+.bottom-0 {
+    bottom: 0;
+}
+
+/*
+ * Spacing
+ */
+.pr-4 {
+    padding-right: 1rem;
+}
+.pb-1 {
+    padding-bottom: .25rem;
+}
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.mt-136 {
+    margin-top: 34rem;
+}
+.mr-4 {
+    margin-right: 1rem;
+}
+
+/*
+ * Sizing
+ */
+.h-6 {
+    height: 1.5rem;
+}
+
+.h-27 {
+    height: 6.75rem;
+}
+
+.w-10 {
+    width: 2.5rem;
+}
+.w-187 {
+    width: 46.5rem;
+}
+
+.w-full {
+    width: 100%;
+}
+.h-full {
+    height: 100%;
+}
+
+.h-full--33 {
+    height: calc(100% - 8.25rem);
+}
+
+/*
+ * Typography
+ */
+.font-serif {
+    font-family: 'Paytone One', sans-serif;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+}
+.text-5xl {
+    font-size: 3rem;
+}
+.text-6xl {
+    font-size: 4rem;
+}
+
+.text-primary {
+    color: var(--color-white);
+}
+
+/**
+ * Backgrounds
+ */
+.background-black {
+    background-color: var(--color-dark);
+}
+.background-overlay {
+    background-color: var(--color-overlay);
+}
+
+/*
+ * Flex
+ */
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+
+/**
+ * Borders
+ */
+.border-overlay {
+    border-color: var(--color-overlay);
+}
+
+.border-solid {
+    border-style: solid;
+}
+
+.border-25 {
+    border-width: 25px;
+}
+
+/**
+ * Box shadows
+ */
+.shadow {
+    box-shadow: 1px 5px 5px black;
+}
