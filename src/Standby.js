@@ -2,28 +2,9 @@ import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
 import {hot} from "react-hot-loader";
 
+import RippleScreen from "./Components/RippleScreen";
+
 import config from '../config.js';
-import Ripples from "./Effects/Ripples";
-
-const FONT_COLOR = 'whitesmoke';
-const OVERLAY_COLOR = 'royalblue';
-const BACKGROUND_COLOR = 'black';
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  
-  color: ${FONT_COLOR};
-  background: ${OVERLAY_COLOR};
-`;
-
 
 const StreamerName = styled.h1`
   font-family: 'Paytone One', sans-serif;
@@ -61,13 +42,12 @@ function Standby() {
     return () => clearInterval(interval);
   }, [setTitle]);
 
-  return(
-    <Container>
-      <Ripples />
+  return (
+    <RippleScreen>
       <StreamerName>Kingdutch</StreamerName>
       <Announcement>Coming soon: {title}</Announcement>
-    </Container>
-  );
+    </RippleScreen>
+  )
 }
 
 export default hot(module)(Standby);
