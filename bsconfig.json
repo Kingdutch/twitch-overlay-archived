@@ -20,7 +20,8 @@
   "namespace": false,
   "bs-dependencies": [
     "reason-react",
-    "bs-fetch"
+    "@kingdutch/reason-fetch",
+    "reason-promise"
   ],
   "ppx-flags": [],
   "refmt": 3

@@ -1,3 +1,5 @@
+open Kingdutch;
+
 type twitchConfigType = {
   streamer_login: string,
   client_id: string,
@@ -13,27 +15,61 @@ let make = () => {
   React.useEffect1(
     () => {
       let updateStreamTitle = () =>
-        Js.Promise.(
-          Fetch.fetchWithInit(
+        Fetch.(
+          fetch(
+            ~init=
+              Init.t(
+                ~headers=
+                  Headers.makeFromObject({
+                    "Client-ID": config.twitch.client_id,
+                  }),
+                (),
+              ),
             "https://api.twitch.tv/helix/streams?user_login="
             ++ config.twitch.streamer_login,
-            Fetch.RequestInit.make(
-              ~headers=
-                Fetch.HeadersInit.make({
-                  "Client-ID": config.twitch.client_id,
-                }),
-              (),
-            ),
           )
-          |> then_(Fetch.Response.json)
-          |> then_(json => Js.Json.decodeObject(json) |> resolve)
-          |> then_(opt => Belt.Option.getExn(opt) |> resolve)
-          |> then_(stream =>
-               stream.data.length ? "Offline" : stream.data[0].title
-             )
-          |> then_(setTitle)
+          ->Promise.flatMapOk(Response.json)
+          ->Promise.mapOk(json =>
+              switch (Js.Json.decodeObject(json)) {
+              | Some(json) =>
+                switch (Js.Dict.get(json, "data")) {
+                | Some(data) =>
+                  switch (Js.Json.decodeArray(data)) {
+                  | Some(data) =>
+                    switch (Js.Array.length(data)) {
+                    | 0 => "Offline"
+                    | _ =>
+                      switch (Js.Json.decodeObject(data[0])) {
+                      | Some(stream) =>
+                        switch (Js.Dict.get(stream, "title")) {
+                        | Some(title) =>
+                          switch (Js.Json.decodeString(title)) {
+                          | Some(title) => title
+                          | None => "Offline"
+                          }
+                        | None => "Offline"
+                        }
+                      | None => "Offline"
+                      }
+                    }
+                  | None => "Offline"
+                  }
+                | None => "Offline"
+                }
+              | None => "Offline"
+              }
+            )
+          ->Promise.mapOk(title => setTitle(_ => React.string(title)))
+          ->Promise.mapError(fetchErrorToString)
+          ->Promise.getError(title => setTitle(_ => React.string(title)))
         );
-      None;
+
+      // Initially set the stream title.
+      updateStreamTitle();
+
+      // Update the stram title every 60 seconds.
+      let interval = Js.Global.setInterval(updateStreamTitle, 60000);
+      Some(() => Js.Global.clearInterval(interval));
     },
     [|setTitle|],
   );

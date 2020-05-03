@@ -19,10 +19,10 @@
     "prewatch:reason": "yarn clean:reason"
   },
   "dependencies": {
-    "bs-fetch": "^0.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
+    "reason-promise": "^1.0.2",
     "reason-react": "0.7.0",
     "styled-components": "^5.1.0"
   },
