@@ -30,34 +30,18 @@ let make = () => {
           )
           ->Promise.flatMapOk(Response.json)
           ->Promise.mapOk(json =>
-              switch (Js.Json.decodeObject(json)) {
-              | Some(json) =>
-                switch (Js.Dict.get(json, "data")) {
-                | Some(data) =>
-                  switch (Js.Json.decodeArray(data)) {
-                  | Some(data) =>
-                    switch (Js.Array.length(data)) {
-                    | 0 => "Offline"
-                    | _ =>
-                      switch (Js.Json.decodeObject(data[0])) {
-                      | Some(stream) =>
-                        switch (Js.Dict.get(stream, "title")) {
-                        | Some(title) =>
-                          switch (Js.Json.decodeString(title)) {
-                          | Some(title) => title
-                          | None => "Offline"
-                          }
-                        | None => "Offline"
-                        }
-                      | None => "Offline"
-                      }
-                    }
-                  | None => "Offline"
-                  }
-                | None => "Offline"
-                }
-              | None => "Offline"
-              }
+              Belt.Option.(
+                Js.Json.(
+                  decodeObject(json)
+                  ->flatMap(Js.Dict.get(_, "data"))
+                  ->flatMap(decodeArray)
+                  ->flatMap(Belt.Array.get(_, 0))
+                  ->flatMap(decodeObject)
+                  ->flatMap(Js.Dict.get(_, "title"))
+                  ->flatMap(decodeString)
+                  ->getWithDefault("Offline")
+                )
+              )
             )
           ->Promise.mapOk(title => setTitle(_ => React.string(title)))
           ->Promise.mapError(fetchErrorToString)
