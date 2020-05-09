@@ -1,5 +1,3 @@
-open Kingdutch;
-
 [@react.component]
 let make = () => {
   let title = Kingdutch__TwitchOverlay__Hooks.useStreamTitle();
