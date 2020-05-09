@@ -22,3 +22,7 @@ yarn start
 
 By default it will show the standby screen. By using a URL hash you can navigate to 
 `#overlay` for the main overlay or `#brb` for the break screen.
+
+![The standby screen shows the streamer name and the stream title. The background is a solid color with animated bubbles.](docs/assets/standby-preview.png)
+
+![The overlay has a titlebar and two main content sections. In the left 1/3rd is space for a webcam and chat. The right 2/3rd shows the main stream content.](docs/assets/overlay-preview.png)
