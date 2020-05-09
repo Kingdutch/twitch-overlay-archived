@@ -21,6 +21,7 @@ appendChild(root);
 let app =
   switch (hash) {
   | Some("#overlay") => <Kingdutch__TwitchOverlay__Scenes__Overlay />
+  | Some("#brb") => <Kingdutch__TwitchOverlay__Scenes__BeRightBack />
   | _ => <Kingdutch__TwitchOverlay__Scenes__Standby />
   };
 

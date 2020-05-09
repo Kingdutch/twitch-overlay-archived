@@ -26,6 +26,9 @@
 .pb-1 {
     padding-bottom: .25rem;
 }
+.pb-4 {
+    padding-bottom: 1rem;
+}
 
 .px-6 {
     padding-left: 1.5rem;
@@ -94,6 +97,10 @@
     color: var(--color-white);
 }
 
+.text-center {
+    text-align: center;
+}
+
 /**
  * Backgrounds
  */
@@ -109,6 +116,10 @@
  */
 .flex {
     display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
 }
 
 .items-center {
@@ -137,9 +148,20 @@
     border-width: 25px;
 }
 
+.round {
+    border-radius: 50%;
+}
+
 /**
  * Box shadows
  */
 .shadow {
     box-shadow: 1px 5px 5px black;
+}
+
+/**
+ * Pointer
+ */
+.pointer-ignore {
+    pointer-events: none;
 }
