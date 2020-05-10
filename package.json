@@ -1,10 +1,10 @@
 {
   "name": "@kingdutch/twitch-overlay",
-  "version": "1.0.0",
+  "version": "0.4.0",
   "description": "The Twitch overlay for Kingdutch's stream",
   "main": "index.js",
   "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "yarn watch",
