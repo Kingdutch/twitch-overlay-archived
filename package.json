@@ -19,6 +19,7 @@
     "prewatch:reason": "yarn clean:reason"
   },
   "dependencies": {
+    "@kingdutch/reason-fetch": "^0.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",

@@ -859,6 +859,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@kingdutch/reason-fetch@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@kingdutch/reason-fetch/-/reason-fetch-0.0.2.tgz#01e4df180dfd6d66961c311eca93687c5f3b8704"
+  integrity sha512-a0QdjEGQVqbIO1kbPwtjINRVjxt8BjapFbZ3nx5YscFJ1muogZ0BWnZ9Ees1RK3mA+WNbtZqSvS6yuOqf6QhSw==
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
