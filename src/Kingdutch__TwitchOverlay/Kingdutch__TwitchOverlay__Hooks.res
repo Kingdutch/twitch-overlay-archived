@@ -6,7 +6,7 @@ type twitchConfigType = {
 }
 type configType = {twitch: twitchConfigType}
 
-@module("../../config") @val external config: configType = "default"
+@module("../../config.mjs") @val external config: configType = "default"
 
 let useStreamTitle = () => {
   let (title, setTitle) = React.useState(() => React.null)

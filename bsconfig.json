@@ -8,6 +8,10 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "server",
+      "subdirs": true
     }
   ],
   "package-specs": [
@@ -16,7 +20,7 @@
       "in-source": true
     }
   ],
-  "suffix": ".bs.js",
+  "suffix": ".mjs",
   "namespace": false,
   "bs-dependencies": [
     "@kingdutch/reason-fetch",

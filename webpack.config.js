@@ -1,8 +1,8 @@
 const path = require("path");
-const webpack = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.bs.js",
+  entry: "./src/Index.mjs",
   mode: "development",
   module: {
     rules: [
@@ -20,10 +20,20 @@ module.exports = {
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: path.join(__dirname, "public/"),
+    static: {
+      directory: path.resolve(__dirname, "public/"),
+    },
     port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: true
+    hot: "only",
+    devMiddleware: {
+      publicPath: "http://localhost:3000/dist/",
+    },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: "public", to: "" },
+      ],
+    }),
+  ]
 };

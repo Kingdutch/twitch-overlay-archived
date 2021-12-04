@@ -2,21 +2,22 @@
   "name": "@kingdutch/twitch-overlay",
   "version": "0.4.0",
   "description": "The Twitch overlay for Kingdutch's stream",
-  "main": "index.js",
+  "main": "server.mjs",
   "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "yarn watch",
+    "dev": "run-p dev:*",
+    "dev:rescript": "rescript build -w",
+    "dev:webpack": "webpack-dev-server --mode development --host 0.0.0.0 --port 1337",
+    "dev:server": "NODE_ENV=development WEBPACK_PORT=1337 nodemon .",
     "build": "run-s build:*",
-    "build:reason": "rescript",
+    "build:rescript": "rescript",
     "build:webpack": "webpack --mode production",
-    "prebuild:rescript": "yarn clean:rescript",
-    "clean:rescript": "rescript clean",
-    "watch": "run-p watch:*",
-    "watch:reason": "rescript build -w",
-    "watch:webpack": "webpack-dev-server --mode development --host 0.0.0.0 --port 1337",
-    "prewatch:rescript": "yarn clean:rescript"
+    "start": "node .",
+    "clean": "run-p clean:*",
+    "clean:webpack": "rm -r dist",
+    "clean:rescript": "rescript clean"
   },
   "dependencies": {
     "@kingdutch/reason-fetch": "^0.0.2",
@@ -25,7 +26,9 @@
     "react-dom": "^18.0.0-beta-4729ff6d1-20211202",
     "react-hot-loader": "^4.12.20",
     "reason-promise": "^1.0.2",
-    "styled-components": "^5.1.0"
+    "serve-handler": "^6.1.3",
+    "styled-components": "^5.1.0",
+    "ws": "^8.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -34,10 +37,12 @@
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "copy-webpack-plugin": "^10.0.0",
+    "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "rescript": "^9.1.4",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
   }
 }

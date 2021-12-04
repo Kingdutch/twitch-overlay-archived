@@ -2,7 +2,7 @@
 node_modules/
 
 # Ignore environment secrets
-config.js
+config.mjs
 
 # editor helpers
 .merlin
@@ -17,7 +17,8 @@ config.js
 
 # BuckleScript artifacts
 /lib
-*.bs.js
+src/**/*.mjs
+server/**/*.mjs
 
 # Build output
 /dist
