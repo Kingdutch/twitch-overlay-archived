@@ -25,4 +25,5 @@ let app = switch hash {
 }
 
 // Render in our newly created element.
-ReactDOM.render(app, root)
+ReactDOM.Experimental.createRoot(root)
+  ->ReactDOM.Experimental.render(app)
