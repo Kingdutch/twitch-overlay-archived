@@ -9,22 +9,22 @@
   "scripts": {
     "start": "yarn watch",
     "build": "run-s build:*",
-    "build:reason": "bsb -make-world",
+    "build:reason": "rescript",
     "build:webpack": "webpack --mode production",
-    "prebuild:reason": "yarn clean:reason",
-    "clean:reason": "bsb -clean-world",
+    "prebuild:rescript": "yarn clean:rescript",
+    "clean:rescript": "rescript clean",
     "watch": "run-p watch:*",
-    "watch:reason": "bsb -make-world -clean-world -w",
-    "watch:webpack": "webpack-dev-server --mode development --port 1337",
-    "prewatch:reason": "yarn clean:reason"
+    "watch:reason": "rescript build -w",
+    "watch:webpack": "webpack-dev-server --mode development --host 0.0.0.0 --port 1337",
+    "prewatch:rescript": "yarn clean:rescript"
   },
   "dependencies": {
     "@kingdutch/reason-fetch": "^0.0.2",
+    "@rescript/react": "^0.10.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
     "reason-promise": "^1.0.2",
-    "reason-react": "0.7.0",
     "styled-components": "^5.1.0"
   },
   "devDependencies": {
@@ -34,8 +34,8 @@
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
-    "bs-platform": "7.2.2",
     "npm-run-all": "^4.1.5",
+    "rescript": "^9.1.4",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"

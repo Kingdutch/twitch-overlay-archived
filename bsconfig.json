@@ -19,9 +19,9 @@
   "suffix": ".bs.js",
   "namespace": false,
   "bs-dependencies": [
-    "reason-react",
     "@kingdutch/reason-fetch",
-    "reason-promise"
+    "reason-promise",
+    "@rescript/react"
   ],
   "ppx-flags": [],
   "refmt": 3
