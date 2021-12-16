@@ -10,6 +10,10 @@
       "subdirs": true
     },
     {
+      "dir": "shared",
+      "subdirs": true
+    },
+    {
       "dir": "server",
       "subdirs": true
     }
@@ -25,7 +29,8 @@
   "bs-dependencies": [
     "@kingdutch/reason-fetch",
     "reason-promise",
-    "@rescript/react"
+    "@rescript/react",
+    "@glennsl/bs-json"
   ],
   "ppx-flags": [],
   "refmt": 3

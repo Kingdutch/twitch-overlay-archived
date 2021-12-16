@@ -16,7 +16,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
+    publicPath: "/",
     filename: "bundle.js"
   },
   devServer: {
@@ -26,7 +26,7 @@ module.exports = {
     port: 3000,
     hot: "only",
     devMiddleware: {
-      publicPath: "http://localhost:3000/dist/",
+      publicPath: "http://localhost:3000/",
     },
   },
   plugins: [

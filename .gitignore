@@ -19,6 +19,7 @@ config.mjs
 /lib
 src/**/*.mjs
 server/**/*.mjs
+shared/**/*.mjs
 
 # Build output
 /dist

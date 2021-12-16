@@ -28,12 +28,12 @@ let useServerControl = () => {
 let make = () => {
   let serverState = useServerControl();
 
-  switch serverState {
+  switch (serverState) {
     | None => <div>{React.string("Connecting.....")}</div>
-    | Some(state) => switch (state.scene) {
-      | StateMachine.Overlay => <Kingdutch__TwitchOverlay__Scenes__Overlay />
+    | Some(state) => switch(state.scene) {
+      | StateMachine.Overlay => <Kingdutch__TwitchOverlay__Scenes__Overlay title={state.streamTitle} />
       | StateMachine.Brb => <Kingdutch__TwitchOverlay__Scenes__BeRightBack />
-      | StateMachine.Standby => <Kingdutch__TwitchOverlay__Scenes__Standby />
+      | StateMachine.Standby => <Kingdutch__TwitchOverlay__Scenes__Standby title={state.streamTitle} />
     }
   }
 }

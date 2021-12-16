@@ -1,13 +1,11 @@
 @react.component
-let make = () => {
-  let title = Kingdutch__TwitchOverlay__Hooks.useStreamTitle()
-
+let make = (~title) => {
   <Kingdutch__TwitchOverlay__Components__Container>
     <Kingdutch__TwitchOverlay__Components__Header>
       <Kingdutch__TwitchOverlay__Components__StreamerName>
         {React.string("Kingdutch")}
       </Kingdutch__TwitchOverlay__Components__StreamerName>
-      <h2> title </h2>
+      <h2> {React.string(title)} </h2>
     </Kingdutch__TwitchOverlay__Components__Header>
     <Kingdutch__TwitchOverlay__Components__MiddleFrame>
       <Kingdutch__TwitchOverlay__Components__StreamInfo>
