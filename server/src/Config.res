@@ -6,12 +6,14 @@ type twitch_config = {
 }
 
 type t = {
+  public_dir: string,
   salt: string,
   twitch: twitch_config,
 }
 
 %%raw(`
 const configShape = {
+  public_dir: 'string',
   salt: 'string',
   twitch: {
     client_id: 'string',
@@ -64,7 +66,7 @@ let assertHasShape : Js.Json.t => () = %raw(`function assertHasShape(config) {
 }
 `)
 
-@module("../config.mjs")
+@module("../../config.mjs")
 external config : Js.Json.t = "default"
 external make : Js.Json.t => t = "%identity"
 let load = () => {

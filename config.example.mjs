@@ -1,4 +1,8 @@
 export default {
+  // The directory into which bundles are compiled.
+  public_dir: __dirname + "/dist/",
+  // A salt that can be used for hashing passwords.
+  salt: "ChangeMe",
   // The details needed to connect to Twitch.
  twitch: {
    client_id: '',

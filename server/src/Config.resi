@@ -6,6 +6,7 @@ type twitch_config = {
 }
 
 type t = {
+  public_dir: string,
   salt: string,
   twitch: twitch_config,
 }

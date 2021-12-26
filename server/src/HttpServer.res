@@ -138,35 +138,13 @@ let makeOAuthHandler = (config) =>
 @module("serve-handler")
 external staticFileHandler : (IncomingMessage.t, ServerResponse.t, 'a) => () = "default"
 
-let fileHandler = switch(Env.isDevelopment) {
-  | true => (request, response) => {
-    let proxy = Http.request(
-      Url.make(request->IncomingMessage.url, "http://localhost"),
-      RequestOptions.make(
-        ~port=Env.webpackPort, 
-        ~method=request->IncomingMessage.method,
-        ~headers=request->IncomingMessage.headers,
-        ()
-      ),
-      (proxyResponse) => {
-        response->ServerResponse.writeHead(
-          proxyResponse->IncomingMessage.statusCode,
-          proxyResponse->IncomingMessage.headers
-        )->ignore
-        proxyResponse->IncomingMessage.pipeToResponse(response, { end: true })
-      }
-    )
-
-    request->IncomingMessage.pipeToRequest(proxy, { end: true })
+let makeFileHandler = (config) => {
+  let serveOptions = {
+    "public": config.Config.public_dir,
+    "directoryListing": false,
+    "trailingSlash": true,
   }
-  | false => {
-    let serveOptions = {
-      "public": "dist",
-      "directoryListing": false,
-    }
-    (request, response) => {
-      staticFileHandler(request, response, serveOptions)
-    }
-    
+  (request, response) => {
+    staticFileHandler(request, response, serveOptions)
   }
 }

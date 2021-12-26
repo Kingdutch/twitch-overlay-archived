@@ -26,23 +26,23 @@ module Decode = {
   }
 }
 
-let fetch = (client: TwitchClient.t<TwitchClient.authenticated>) => {
-  open Kingdutch.Fetch;
-  fetch(
-    ~init=Init.t(
-      ~headers=Headers.makeFromObject({
-        "Client-ID": client->TwitchClient.getClientId,
-        "Authorization": "Bearer " ++ client->TwitchClient.getToken,
-      }),
-      (),
-    ),
-    "https://api.twitch.tv/helix/users",
-  )
-  ->Promise.flatMapOk(Response.json)
-  ->Promise.mapOk(Decode.t)
-  ->Promise.mapError(fetchErrorToString)
-  ->Promise.map(result => switch (result) {
-    | Ok(user) => Ok(user)
-    | Error(e) => Error(e)
-  })
-}
+// let fetch = (client: TwitchClient.t<TwitchClient.authenticated>) => {
+//   open Kingdutch.Fetch;
+//   fetch(
+//     ~init=Init.t(
+//       ~headers=Headers.makeFromObject({
+//         "Client-ID": client->TwitchClient.getClientId,
+//         "Authorization": "Bearer " ++ client->TwitchClient.getToken,
+//       }),
+//       (),
+//     ),
+//     "https://api.twitch.tv/helix/users",
+//   )
+//   ->Promise.flatMapOk(Response.json)
+//   ->Promise.mapOk(Decode.t)
+//   ->Promise.mapError(fetchErrorToString)
+//   ->Promise.map(result => switch (result) {
+//     | Ok(user) => Ok(user)
+//     | Error(e) => Error(e)
+//   })
+// }

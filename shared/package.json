@@ -1,0 +1,22 @@
+{
+  "name": "@kingdutch/twitch-overlay-shared",
+  "version": "0.4.0",
+  "description": "The admin panel for Kingdutch's stream",
+  "main": "src/Index.mjs",
+  "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "rescript build -w",
+    "build": "rescript",
+    "clean": "rescript clean"
+  },
+  "dependencies": {
+    "@glennsl/bs-json": "^5.0.4",
+    "@kingdutch/reason-fetch": "^0.0.2",
+    "@rescript/react": "^0.10.3",
+    "react": "^18.0.0-beta-4729ff6d1-20211202",
+    "react-dom": "^18.0.0-beta-4729ff6d1-20211202",
+    "reason-promise": "^1.0.2"
+  }
+}

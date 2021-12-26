@@ -9,10 +9,11 @@ let twitchClient = TwitchClient.make(config.Config.twitch.client_id, config.Conf
 // Webserver Setup
 ////////////////////////////////////
 let oAuthHandler = HttpServer.makeOAuthHandler(config)
+let fileHandler = HttpServer.makeFileHandler(config)
 
 let server = Node.Http.createServer((request, response) => {
   if (!oAuthHandler(request, response)) {
-    HttpServer.fileHandler(request, response);
+    fileHandler(request, response);
   }
 })
 

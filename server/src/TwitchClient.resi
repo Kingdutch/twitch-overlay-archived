@@ -11,4 +11,4 @@ let getToken : t<authenticated> => string
 
 let authenticateClient : (t<unauthenticated>, string) => t<authenticated>
 
-let fetchStreamTitle : (t<authenticated>, string) => Promise.t<result<string, string>>
+// let fetchStreamTitle : (t<authenticated>, string) => Promise.t<result<string, string>>

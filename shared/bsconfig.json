@@ -1,0 +1,25 @@
+{
+  "name": "@kingdutch/twitch-overlay-shared",
+  "reason": { 
+    "react-jsx": 3 
+  },
+  "bsc-flags": ["-bs-super-errors"],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".mjs",
+  "namespace": false,
+  "bs-dependencies": [
+  ],
+  "ppx-flags": [],
+  "refmt": 3
+}

@@ -2,48 +2,37 @@
   "name": "@kingdutch/twitch-overlay",
   "version": "0.4.0",
   "description": "The Twitch overlay for Kingdutch's stream",
-  "main": "server/Server.mjs",
   "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "shared",
+    "shared-client",
+    "admin",
+    "viewer",
+    "server"
+  ],
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:rescript": "rescript build -w",
-    "dev:webpack": "webpack-dev-server --mode development --host 0.0.0.0 --port 1337",
-    "dev:server": "NODE_ENV=development WEBPACK_PORT=1337 nodemon .",
+    "dev:rescript-admin": "yarn workspace @kingdutch/twitch-overlay-admin run dev",
+    "dev:rescript-viewer": "yarn workspace @kingdutch/twitch-overlay-viewer run dev",
+    "dev:rescript-server": "yarn workspace @kingdutch/twitch-overlay-server run dev",
+    "dev:esbuild": "NODE_ENV=development node ./dev.js",
+    "dev:server": "NODE_ENV=development nodemon --verbose --watch server/ --watch shared/ server",
     "build": "run-s build:*",
-    "build:rescript": "rescript",
-    "build:webpack": "webpack --mode production",
-    "start": "node .",
+    "build:rescript": "yarn workspaces run build",
+    "build:package": "node ./build.js",
+    "build:copy-viewer-public": "cp viewer/public/* dist/",
+    "build:copy-admin-public": "cp admin/public/* dist/admin/",
+    "start": "yarn workspace @kingdutch/twitch-overlay-server start",
     "clean": "run-p clean:*",
     "clean:webpack": "rm -r dist",
-    "clean:rescript": "rescript clean"
-  },
-  "dependencies": {
-    "@glennsl/bs-json": "^5.0.4",
-    "@kingdutch/reason-fetch": "^0.0.2",
-    "@rescript/react": "^0.10.3",
-    "react": "^18.0.0-beta-4729ff6d1-20211202",
-    "react-dom": "^18.0.0-beta-4729ff6d1-20211202",
-    "react-hot-loader": "^4.12.20",
-    "reason-promise": "^1.0.2",
-    "serve-handler": "^6.1.3",
-    "styled-components": "^5.1.0",
-    "ws": "^8.3.0"
+    "clean:rescript": "yarn workspaces run clean"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-styled-components": "^1.10.7",
-    "copy-webpack-plugin": "^10.0.0",
+    "esbuild": "^0.14.8",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
-    "rescript": "^9.1.4",
-    "webpack": "^5.64.4",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "rescript": "^9.1.4"
   }
 }
