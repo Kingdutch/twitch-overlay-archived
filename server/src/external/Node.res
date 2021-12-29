@@ -78,3 +78,27 @@ module Buffer = {
   @send
   external toString : (t, string) => string = "toString"
 }
+
+module FileSystem = {
+  module ReadStream = { 
+    type t
+    type error = {
+      name: string,
+      message: string,
+    }
+
+    @send external onOpen : (t, string, () => ()) => () = "on" 
+    let onOpen = (stream, callback) => stream->onOpen("open", callback)
+
+    @send external onError : (t, string, error => ()) => () = "on" 
+    let onError = (stream, callback) => stream->onError("error", callback)
+
+    type pipeOptions = { end: bool }
+    @send
+    external pipeAsHttpResponse : (t, ServerResponse.t, pipeOptions) => () = "pipe"
+  }
+
+  type readStreamOptions = Js.Dict.t<string>
+  @module("fs")
+  external createReadStream : (string, readStreamOptions) => ReadStream.t = "createReadStream"
+}

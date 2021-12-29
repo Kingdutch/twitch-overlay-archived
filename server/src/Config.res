@@ -2,7 +2,6 @@ type twitch_config = {
   client_id: string,
   client_secret: string,
   scopes: array<string>,
-  redirect_path: string
 }
 
 type t = {
@@ -19,7 +18,6 @@ const configShape = {
     client_id: 'string',
     client_secret: 'string',
     scopes: 'array',
-    redirect_path: 'string',
   },
   ws_secret_viewer: 'string',
   ws_secret_admin: 'string',

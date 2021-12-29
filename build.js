@@ -2,18 +2,9 @@ const fs = require('fs')
 const esbuild = require('esbuild')
 
 const configs = {
-  "admin": {
+  "client": {
     bundle: true,
-    entryPoints: ["admin/src/Index.mjs"],
-    logLevel: "info",
-    minify: true,
-    outfile: "dist/admin/bundle.js",
-    sourcemap: true,
-    treeShaking: true,
-  },
-  "viewer": {
-    bundle: true,
-    entryPoints: ["viewer/src/Index.mjs"],
+    entryPoints: ["client/src/Index.mjs"],
     logLevel: "info",
     minify: true,
     outfile: "dist/bundle.js",

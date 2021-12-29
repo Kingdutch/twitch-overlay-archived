@@ -8,14 +8,7 @@ let twitchClient = TwitchClient.make(config.Config.twitch.client_id, config.Conf
 ////////////////////////////////////
 // Webserver Setup
 ////////////////////////////////////
-let oAuthHandler = HttpServer.makeOAuthHandler(config)
-let fileHandler = HttpServer.makeFileHandler(config)
-
-let server = Node.Http.createServer((request, response) => {
-  if (!oAuthHandler(request, response)) {
-    fileHandler(request, response);
-  }
-})
+let server = Node.Http.createServer(HttpServer.makeRouter(config))
 
 ////////////////////////////////////
 // Websocket Setup

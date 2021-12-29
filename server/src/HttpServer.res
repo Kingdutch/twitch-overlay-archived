@@ -48,7 +48,7 @@ let makeOAuthHandler = (config) =>
 
     switch (requestUrl->Url.pathname) {
       | "/login" => {
-        let returnRedirectUri = Url.make(config.Config.twitch.redirect_path, requestUrl->Url.toString)
+        let returnRedirectUri = Url.make("/oauth2/complete", requestUrl->Url.toString)
 
         let requestRedirectUri = Url.make("/oauth2/authorize", "https://id.twitch.tv")
         requestRedirectUri->Url.searchParamsAppend("client_id", config.Config.twitch.client_id)
@@ -59,13 +59,12 @@ let makeOAuthHandler = (config) =>
         response
           ->ServerResponse.writeHead(302, Js.Dict.fromArray([("Location", requestRedirectUri->Url.toString)]))
           ->ServerResponse.end
-        true
       }
-      | pathname when pathname == config.Config.twitch.redirect_path => {
+      | "/oauth2/complete" => {
         switch (requestUrl->Url.searchParamsGet("code")) {
           | None =>  response->ServerResponse.writeHead(400, Js.Dict.empty())->ServerResponse.end
           | Some(code) => {
-            let returnRedirectUri = Url.make(config.Config.twitch.redirect_path, requestUrl->Url.toString)
+            let returnRedirectUri = Url.make("/oauth2/complete", requestUrl->Url.toString)
             let codeRequestUri = Url.make("/oauth2/token", "https://id.twitch.tv")
             codeRequestUri->Url.searchParamsAppend("client_id", config.Config.twitch.client_id)
             codeRequestUri->Url.searchParamsAppend("client_secret", config.Config.twitch.client_secret)
@@ -129,9 +128,8 @@ let makeOAuthHandler = (config) =>
             )->ClientRequest.end
           }
         }
-        true
       }
-      | _ => false
+      | route => Js.Console.error("oAuthHandler was asked to handle '" ++ route ++ "' but doesn't know how to do this.")
     }
   }
 
@@ -141,10 +139,66 @@ external staticFileHandler : (IncomingMessage.t, ServerResponse.t, 'a) => () = "
 let makeFileHandler = (config) => {
   let serveOptions = {
     "public": config.Config.public_dir,
+    "rewrites": [
+      { "source": "/assets/:asset", "destination": "/:asset" }
+    ],
     "directoryListing": false,
     "trailingSlash": true,
   }
   (request, response) => {
     staticFileHandler(request, response, serveOptions)
+  }
+}
+
+let indexHandler = (_request, response) => {
+  open Node.FileSystem;
+
+  let fileStream = createReadStream(
+    "./server/src/index.html", 
+    Js.Dict.fromArray([("encoding", "utf-8")])
+  )
+
+  fileStream->ReadStream.onOpen(() => {
+    response->ServerResponse.writeHead(
+      200, 
+      Js.Dict.fromArray([
+        ("Content-Type", "text/html; charset=UTF-8"),
+      ])
+    )->ignore
+    fileStream->ReadStream.pipeAsHttpResponse(response, { end: true })
+  })
+
+  fileStream->ReadStream.onError(error => {
+    Js.Console.error2("Error encountered while trying to read index.html", error)
+
+      response->ServerResponse.writeHead(
+        500, 
+        Js.Dict.fromArray([
+          ("Content-Type", "text/plain; charset=UTF-8"),
+        ])
+      )
+      ->ServerResponse.endWith("Internal Server Error")
+  })
+}
+
+let makeRouter = (config) => {
+  let oAuthHandler = makeOAuthHandler(config)
+  let fileHandler = makeFileHandler(config)
+
+  (request, response) => {
+    let requestUrl = Url.make(
+      request->IncomingMessage.url,
+      "http://" ++ request->IncomingMessage.headers->Js.Dict.unsafeGet("host")
+    )
+
+    switch (requestUrl->Url.pathname) {
+      // Login and oAuth related requests.
+      | "/login"
+      | "/oauth2/complete" => oAuthHandler(request, response)
+      // Static assets like JavaScript bundles or images.
+      | maybeAssetPath when maybeAssetPath->Js.String2.startsWith("/assets/") => fileHandler(request, response)
+      // All other requests are handled client side.
+      | _ => indexHandler(request, response)
+    }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@kingdutch/twitch-overlay-viewer",
+  "name": "@kingdutch/twitch-overlay-client",
   "reason": { 
     "react-jsx": 3 
   },
@@ -20,15 +20,13 @@
   "namespace": false,
   "bs-dependencies": [
     "@kingdutch/twitch-overlay-shared",
-    "@kingdutch/twitch-overlay-shared-client",
     "@kingdutch/reason-fetch",
     "reason-promise",
     "@rescript/react",
     "@glennsl/bs-json"
   ],
   "pinned-dependencies": [
-    "@kingdutch/twitch-overlay-shared",
-    "@kingdutch/twitch-overlay-shared-client"
+    "@kingdutch/twitch-overlay-shared"
   ],
   "ppx-flags": [],
   "refmt": 3

@@ -1,7 +1,7 @@
 {
-  "name": "@kingdutch/twitch-overlay-viewer",
+  "name": "@kingdutch/twitch-overlay-client",
   "version": "0.4.0",
-  "description": "The admin panel for Kingdutch's stream",
+  "description": "The client for Kingdutch's stream manager.",
   "main": "src/Index.mjs",
   "author": "Alexander Varwijk <git@twitch.alexandervarwijk.com>",
   "license": "MIT",
