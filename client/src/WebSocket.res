@@ -15,10 +15,10 @@ external close : (t, int, string) => unit = "close"
 // Application specific
 type messageEvent = { data: string }
 
-type serverMessage = { data: StateMachine.t }
+type serverMessage = { data: StreamState.t }
 external asMessageEvent : event => messageEvent = "%identity"
 
-let onMessage = (ws, callback: StateMachine.t => ()) => {
+let onMessage = (ws, callback: StreamState.t => ()) => {
   let callback = (event) => {
     asMessageEvent(event).data->Js.Json.deserializeUnsafe->callback
   }

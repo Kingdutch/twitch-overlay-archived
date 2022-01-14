@@ -17,6 +17,7 @@ module Url = {
   }
 
   @bs.get external pathname : t => string = "pathname"
+  @bs.get external origin : t => string = "origin"
 
   @send external toString : t => string = "toString"
 }

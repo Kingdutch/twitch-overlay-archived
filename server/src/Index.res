@@ -90,13 +90,13 @@ wss->WebSocketServer.onClose(() => {
 ////////////////////////////////////
 // Control server functionality
 ////////////////////////////////////
-let serverState = ref(StateMachine.make())
+let serverState = ref(StreamState.make())
 
 Js.Global.setInterval(() => {
-  open StateMachine
+  open StreamState
   serverState := (serverState.contents->isStandby ? serverState.contents->toOverlay : serverState.contents->toStandby)
 
-  let updatedState = serverState.contents->StateMachine.stringify
+  let updatedState = serverState.contents->StreamState.stringify
   wss
     ->WebSocketServer.clients
     ->Js.Array2.forEach(

@@ -1,0 +1,1 @@
+let isLocalURL : string => bool
