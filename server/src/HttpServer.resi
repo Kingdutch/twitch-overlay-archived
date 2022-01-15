@@ -1,1 +1,1 @@
-let makeRouter : (Config.t) => (Node.IncomingMessage.t, Node.ServerResponse.t) => ()
+let makeRouter : (Config.t, ServerState.t) => (Node.IncomingMessage.t, Node.ServerResponse.t) => ()

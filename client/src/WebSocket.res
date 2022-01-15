@@ -18,6 +18,9 @@ type messageEvent = { data: string }
 type serverMessage = { data: StreamState.t }
 external asMessageEvent : event => messageEvent = "%identity"
 
+@send
+external send : (t, string) => () = "send"
+
 let onMessage = (ws, callback: StreamState.t => ()) => {
   let callback = (event) => {
     asMessageEvent(event).data->Js.Json.deserializeUnsafe->callback

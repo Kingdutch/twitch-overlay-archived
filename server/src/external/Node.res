@@ -1,5 +1,22 @@
 type headers = Js.Dict.t<string>
 
+module Socket = {
+  type t
+
+  @send
+  external write : (t, string) => () = "write"
+
+  @send
+  external destroy : t => () = "destroy"
+}
+
+module Buffer = {
+  type t
+
+  @send
+  external toString : (t, string) => string = "toString"
+}
+
 module ServerResponse = {
   type t
 
@@ -63,6 +80,9 @@ module Http = {
   @send
   external address : t => addressInfo = "address"
 
+  @send external onUpgrade : (t, string, (IncomingMessage.t, Socket.t, Buffer.t) => ()) => () = "on" 
+  let onUpgrade = (server, callback) => server->onUpgrade("upgrade", callback)
+
   @module("http")
   external request : (Web.Url.t, RequestOptions.t, IncomingMessage.t => ()) => ClientRequest.t = "request"
 }
@@ -70,13 +90,6 @@ module Http = {
 module Https = {
   @module("https")
   external request : (Web.Url.t, RequestOptions.t, IncomingMessage.t => ()) => ClientRequest.t = "request"
-}
-
-module Buffer = {
-  type t
-
-  @send
-  external toString : (t, string) => string = "toString"
 }
 
 module FileSystem = {

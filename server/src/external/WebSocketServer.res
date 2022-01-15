@@ -2,21 +2,21 @@ module Connection = {
   type t
 
   @send
-  external onPong : (t, string, (@this t, Node.Buffer.t) => ()) => () = "on"
+  external onPong : (t, string, @this ((t, Node.Buffer.t) => ())) => () = "on"
   let onPong = (ws, cb) => ws->onPong("pong", cb)
   @send
-  external oncePong : (t, string, (@this t, Node.Buffer.t) => ()) => () = "once"
+  external oncePong : (t, string, @this ((t, Node.Buffer.t) => ())) => () = "once"
   let oncePong = (ws, cb) => ws->oncePong("pong", cb)
 
   @send
-  external onMessage : (t, string, (@this t, Node.Buffer.t) => ()) => () = "on"
+  external onMessage : (t, string, @this ((t, Node.Buffer.t) => ())) => () = "on"
   let onMessage = (ws, cb) => ws->onMessage("message", cb)
   @send
-  external onceMessage : (t, string, (@this t, Node.Buffer.t) => ()) => () = "once"
+  external onceMessage : (t, string, @this ((t, Node.Buffer.t) => ())) => () = "once"
   let onceMessage = (ws, cb) => ws->onceMessage("message", cb)
 
   @send
-  external onClose : (t, string, (@this t, int, string) => ()) => () = "on"
+  external onClose : (t, string, @this ((t, int, string) => ())) => () = "on"
   let onClose = (ws, cb) => ws->onClose("close", cb)
 
   @send
@@ -32,6 +32,13 @@ type t
 
 @module("ws") @new
 external make : 'a => t = "WebSocketServer"
+
+@send
+external handleUpgrade : (t, Node.IncomingMessage.t, Node.Socket.t, Node.Buffer.t, Connection.t => ()) => () = "handleUpgrade"
+
+@send
+external emitConnection : (t, string, Connection.t, Node.IncomingMessage.t, 'a) => () = "emit"
+let emitConnection = (server, ws, request, data) => server->emitConnection("connection", ws, request, data) 
 
 @send
 external onConnection : (t, string, Connection.t => ()) => () = "on"

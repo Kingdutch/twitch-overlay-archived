@@ -1,14 +1,6 @@
 open Web
 open Node
 
-type oauthToken = {
-  accessToken: string,
-  refreshToken: string,
-  expiresIn: int,
-  scope: array<string>,
-  tokenType: string,
-}
-
 type validateToken = {
   clientId: string,
   login: string,
@@ -18,6 +10,7 @@ type validateToken = {
 }
 
 module Decode = {
+  open ServerState
   open Json.Decode
 
   let oauthToken = json => {
@@ -39,7 +32,7 @@ module Decode = {
  
 }
 
-let makeOAuthHandler = (config) => 
+let makeOAuthHandler = (config, serverState) => 
   (request, response) => {
     let requestUrl = Url.make(
       request->IncomingMessage.url,
@@ -113,9 +106,17 @@ let makeOAuthHandler = (config) =>
                                 Js.Console.log2("User ID", validation.userId)
                                 Js.Console.log2("Login", validation.login)
 
+                                serverState->ServerState.addClient(validation.userId, validation.login, authData)
+
                                 response
-                                  ->ServerResponse.writeHead(200, Js.Dict.empty())
-                                  ->ServerResponse.endWith("Authenticated")
+                                  ->ServerResponse.writeHead(
+                                    302, 
+                                    Js.Dict.fromArray([
+                                      ("Set-Cookie", "access-token=" ++ validation.userId ++ "; Secure; HttpOnly; Path=/; SameSite=Strict"),
+                                      ("Location", "/controller")
+                                    ])
+                                  )
+                                  ->ServerResponse.endWith("")
                               }
                             }
                           })
@@ -181,8 +182,8 @@ let indexHandler = (_request, response) => {
   })
 }
 
-let makeRouter = (config) => {
-  let oAuthHandler = makeOAuthHandler(config)
+let makeRouter = (config, serverState) => {
+  let oAuthHandler = makeOAuthHandler(config, serverState)
   let fileHandler = makeFileHandler(config)
 
   (request, response) => {

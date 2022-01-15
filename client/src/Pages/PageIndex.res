@@ -5,6 +5,6 @@ let make = () => {
     <br/>
     <Link href="/control/">{React.string("Control Panel")}</Link>
     <br/>
-    <Link href="/viewer/">{React.string("Viewer")}</Link>
+    <Link href="/viewer/82849734">{React.string("Viewer")}</Link>
   </div>
 }
