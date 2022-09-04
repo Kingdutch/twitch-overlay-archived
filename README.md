@@ -1,4 +1,7 @@
-# Kingdutch Twitch Overlay
+# Kingdutch Twitch Overlay - Archived
+
+*This repository has been superceded by a project which is not currently public.
+This repository has been left up for people to reference.*
 
 This repository contains the overlay used for streams at twitch.tv/TheKingdutch
 
